@@ -1,14 +1,14 @@
 require_relative 'spec_helper'
 
-describe Server do
+describe Host do
 
   before(:all) do
     @port = 2075
     @config = Configuration.new(port: @port)
-    @server = Server.new(@config)
+    @server = Host.new(@config)
   end
 
-  context "creating a server" do
+  context "creating a host" do
 
     it "should accept a config as a constructor parameter" do
       @server.config.port.should == @port
@@ -16,7 +16,7 @@ describe Server do
 
   end
 
-  context "starting a server" do
+  context "starting a host" do
 
     it "should start a server loop on the specified port" do
       Socket.should_receive(:tcp_server_loop).with(@port)

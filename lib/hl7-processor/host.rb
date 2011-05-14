@@ -1,7 +1,7 @@
 require 'socket'
 
 module HL7Processor
-  class Server
+  class Host
 
     attr_reader :config
 
@@ -10,11 +10,11 @@ module HL7Processor
     end
 
     def start
-      puts "Starting server"
+      puts "Listening for HL7 messages on port #{@config.port}."
 
       Socket.tcp_server_loop(@config.port) do |socket, client_addrinfo|
         begin
-          start_loop(socket)
+          read_socket(socket)
         rescue EOFError
           puts "Client closed the connection. Shutting down."
         end
@@ -24,7 +24,7 @@ module HL7Processor
 
     private
 
-    def start_loop(socket)
+    def read_socket(socket)
       while(true)
         llp_line = socket.readline('\r')
         LLPMessageHandler.new(llp_line).handle
