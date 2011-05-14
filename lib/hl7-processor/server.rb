@@ -11,11 +11,13 @@ module HL7Processor
 
     def start
       puts "Starting server"
+
       Socket.tcp_server_loop(@config.port) do |socket, client_addrinfo|
-        message = socket.readlines
-        MessageHandler.new(message)
-        socket.close
+        socket.each_line('\r') do |llp_line|
+          RawMessageHandler.new(llp_line).handle
+        end
       end
+
     end
 
   end

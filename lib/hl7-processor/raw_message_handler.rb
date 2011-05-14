@@ -1,12 +1,12 @@
 module HL7Processor
-  class MessageHandler
+  class RawMessageHandler
 
     def initialize(message)
       @message = message
     end
 
     def handle
-      puts"'Receieved a message: #{@message}"
+      puts "Receieved a message: #{@message}"
     end
 
   end

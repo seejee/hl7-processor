@@ -28,15 +28,19 @@ describe Server do
 
   context "receiving a message" do
 
-    it "should pass the socket to a message handler" do
-      socket = StringIO.new("hl7 text")
-      Socket.stub(:tcp_server_loop).with(@port).and_yield(socket, nil)
-
-      @server.start
-
-      socket.closed?.should == true
+    before(:each) do
+      @socket = StringIO.new("\x0bhl7\x1c\r")
     end
 
+    after(:each) do
+      @socket.close
+    end
+
+    it "should pass the message to a raw message handler" do
+      Socket.stub(:tcp_server_loop).with(@port).and_yield(@socket, nil)
+
+      @server.start
+    end
   end
 
 end
