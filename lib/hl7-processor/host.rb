@@ -16,8 +16,7 @@ module HL7Processor
         begin
           read_socket(socket)
         rescue EOFError
-          puts "Client closed the connection. Shutting down."
-          return
+          puts "Client closed the connection."
         end
       end
 
