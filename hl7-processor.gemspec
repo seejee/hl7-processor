@@ -4,7 +4,7 @@ require "hl7-processor/version"
 
 Gem::Specification.new do |s|
   s.name        = "hl7-processor"
-  s.version     = Hl7Processor::VERSION
+  s.version     = HL7Processor::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Chris Geihsler"]
   s.email       = ["chris@geihsler.net"]
