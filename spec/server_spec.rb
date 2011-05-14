@@ -28,12 +28,13 @@ describe Server do
 
   context "receiving a message" do
 
-    it "should pass the socket to a socket handler" do
-      mock_socket = mock "sock"
-      Socket.stub(:tcp_server_loop).with(@port).and_yield(mock_socket, nil)
-      mock_socket.should_receive(:close)
+    it "should pass the socket to a message handler" do
+      socket = StringIO.new("hl7 text")
+      Socket.stub(:tcp_server_loop).with(@port).and_yield(socket, nil)
 
       @server.start
+
+      socket.closed?.should == true
     end
 
   end
