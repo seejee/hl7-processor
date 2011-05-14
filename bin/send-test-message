@@ -5,7 +5,8 @@ require 'socket'
 
 include HL7Processor
 
-socket = Socket.tcp("127.0.0.1", 5900)
 llp = LLPMessage.from_hl7("hello!")
+
+socket = Socket.tcp("127.0.0.1", 5900)
 socket.write(llp.to_s)
 socket.close

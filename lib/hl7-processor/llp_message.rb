@@ -21,7 +21,8 @@ module HL7Processor
     private
 
     def self.wrap_hl7(hl7)
-      llp = RECORD_HEADER
+      llp = ""
+      llp << RECORD_HEADER
       llp << hl7
       llp << RECORD_TRAILER
       llp << CARRIAGE_RETURN
