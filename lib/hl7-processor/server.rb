@@ -13,11 +13,22 @@ module HL7Processor
       puts "Starting server"
 
       Socket.tcp_server_loop(@config.port) do |socket, client_addrinfo|
-        socket.each_line('\r') do |llp_line|
-          RawMessageHandler.new(llp_line).handle
+        begin
+          start_loop(socket)
+        rescue EOFError
+          puts "Client closed the connection. Shutting down."
         end
       end
 
+    end
+
+    private
+
+    def start_loop(socket)
+      while(true)
+        llp_line = socket.readline('\r')
+        RawMessageHandler.new(llp_line).handle
+      end
     end
 
   end

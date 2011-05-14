@@ -7,5 +7,10 @@ RSpec.configure do |c|
 end
 
 module HL7Processor
+
+  def build_hl7_socket(hl7)
+    StringIO.new(LLP_RECORD_HEADER + hl7 + LLP_RECORD_TRAILER + LLP_CARRIAGE_RETURN)
+  end
+
 end
 

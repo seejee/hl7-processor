@@ -29,7 +29,7 @@ describe Server do
   context "receiving a message" do
 
     before(:each) do
-      @socket = StringIO.new("\x0bhl7\x1c\r")
+      @socket = build_hl7_socket("hl7")
     end
 
     after(:each) do
