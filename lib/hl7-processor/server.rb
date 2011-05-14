@@ -27,7 +27,7 @@ module HL7Processor
     def start_loop(socket)
       while(true)
         llp_line = socket.readline('\r')
-        RawMessageHandler.new(llp_line).handle
+        LLPMessageHandler.new(llp_line).handle
       end
     end
 

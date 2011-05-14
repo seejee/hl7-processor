@@ -1,5 +1,5 @@
 module HL7Processor
-  class RawMessageHandler
+  class LLPMessageHandler
 
     def initialize(message)
       @message = message
