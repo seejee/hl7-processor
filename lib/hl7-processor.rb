@@ -1,5 +1,3 @@
-module Hl7
-  module Processor
-    # Your code goes here...
-  end
+module HL7Processor
+
 end

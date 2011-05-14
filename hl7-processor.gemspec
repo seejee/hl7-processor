@@ -4,7 +4,7 @@ require "hl7-processor/version"
 
 Gem::Specification.new do |s|
   s.name        = "hl7-processor"
-  s.version     = Hl7::Processor::VERSION
+  s.version     = Hl7Processor::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Chris Geihsler"]
   s.email       = ["chris@geihsler.net"]
@@ -18,4 +18,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  s.add_development_dependency 'rspec', '~>2.5.0'
+
 end
