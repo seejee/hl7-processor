@@ -1,5 +1,4 @@
 module HL7Processor
-
   class Configuration
 
     attr_reader :port
@@ -9,5 +8,4 @@ module HL7Processor
     end
 
   end
-
 end

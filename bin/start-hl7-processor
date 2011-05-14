@@ -1,0 +1,8 @@
+#!/usr/bin/ruby
+
+require 'hl7-processor'
+
+config = HL7Processor::Configuration.new(port: 5900)
+server = HL7Processor::Server.new(config)
+
+server.start
