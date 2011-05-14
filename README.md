@@ -7,6 +7,8 @@ At the moment only an object model is provided, but an easy-to-use DSL will be a
 The following example starts a host on port 5000 and will print received HL7
 messages to std_out.
 
+    require 'hl7-processor'
+
     config = HL7Processor::Configuration.new(port: 5000)
     host = HL7Processor::Host.new(config)
 

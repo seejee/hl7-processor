@@ -17,6 +17,7 @@ module HL7Processor
           read_socket(socket)
         rescue EOFError
           puts "Client closed the connection. Shutting down."
+          return
         end
       end
 
@@ -27,7 +28,8 @@ module HL7Processor
     def read_socket(socket)
       while(true)
         llp_line = socket.readline('\r')
-        LLPMessageHandler.new(llp_line).handle
+        llp = LLPMessage.from_llp(llp_line)
+        LLPMessageHandler.new(llp).handle
       end
     end
 
