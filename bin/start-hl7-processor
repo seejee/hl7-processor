@@ -2,9 +2,7 @@
 
 require 'hl7-processor'
 
-include HL7Processor
-
-config = Configuration.new(port: 5900)
-server = Host.new(config)
+config = HL7Processor::Configuration.new(port: 5900)
+server = HL7Processor::Host.new(config)
 
 server.start

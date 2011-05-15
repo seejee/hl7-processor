@@ -3,9 +3,7 @@
 require 'hl7-processor'
 require 'socket'
 
-include HL7Processor
-
-llp = LLPMessage.from_hl7("hello!")
+llp = HL7Processor::LLPMessage.from_hl7("hello!")
 
 socket = Socket.tcp("127.0.0.1", 5900)
 socket.write(llp.to_s)

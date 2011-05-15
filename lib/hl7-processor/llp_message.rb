@@ -7,12 +7,15 @@ module HL7Processor
 
     def self.from_hl7(hl7)
       llp = wrap_hl7(hl7)
-      LLPMessage.new(llp)
+      LLPMessage.new(llp, hl7)
     end
 
     def self.from_llp(llp)
-      LLPMessage.new(llp)
+      hl7 = parse_hl7(llp)
+      LLPMessage.new(llp, hl7)
     end
+
+    attr_reader :llp, :hl7
 
     def to_s
       @llp
@@ -29,8 +32,15 @@ module HL7Processor
       llp
     end
 
-    def initialize(llp)
+    def self.parse_hl7(llp)
+      header_index = llp.index(RECORD_HEADER)
+      trailer_index = llp.index(RECORD_TRAILER)
+      llp[header_index+1..trailer_index-1]
+    end
+
+    def initialize(llp, hl7)
       @llp = llp
+      @hl7 = hl7
     end
 
   end

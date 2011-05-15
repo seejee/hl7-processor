@@ -17,10 +17,8 @@ Starts a host on port 5000
 
     require 'hl7-processor'
 
-    include HL7Processor
-
-    config = Configuration.new(port: 5000)
-    host = Host.new(config)
+    config  = HL7Processor::Configuration.new(port: 5000)
+    host    = HL7Processor::Host.new(config)
 
     host.start
 
@@ -30,9 +28,7 @@ host, use the following code:
     require 'hl7-processor'
     require 'socket'
 
-    include HL7Processor
-
-    llp = LLPMessage.from_hl7("hello!")
+    llp = HL7Processor::LLPMessage.from_hl7("hello!")
 
     socket = Socket.tcp("127.0.0.1", 5000)
     socket.write(llp.to_s)
