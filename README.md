@@ -15,6 +15,8 @@ The bin directory provides a few example scripts, but here are a few examples:
 
 Starts a host on port 5900
 
+    require 'hl7-processor'
+
     class LoggingChannel
       extend HL7Processor::Channels::Logging
 
@@ -26,12 +28,13 @@ Starts a host on port 5900
 
     end
 
-    config = HL7Processor::Configuration.new(
-        port:               5900,
-        message_processor:  HL7Processor::Processors::Immediate,
-        channels:           [LoggingChannel]
-        )
-    server = HL7Processor::Host.new(config)
+    host = HL7Processor::Host.new do |config|
+      config.port      = 5900
+      config.processor = HL7Processor::Processors::Immediate
+      config.channels  = [LoggingChannel]
+    end
+
+    host.start
 
 HL7 is transmitted via a protocol called LLP. To send an LLP message to the
 host, use the following code:
