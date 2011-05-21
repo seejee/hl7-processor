@@ -5,15 +5,9 @@ module HL7Processor
 
     attr_reader :config
 
-    def initialize(config = nil)
-
-      if(block_given?)
-        @config = Configuration.new
-        yield @config
-        return
-      end
-
+    def initialize(config = Configuration.new)
       @config = config
+      yield @config if block_given?
     end
 
     def start
