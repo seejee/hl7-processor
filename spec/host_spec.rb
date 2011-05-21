@@ -4,7 +4,10 @@ describe Host do
 
   before(:all) do
     @port = 2075
-    @config = Configuration.new(port: @port)
+    @config = HL7Processor::Configuration.new(
+        port: 2075,
+        message_processor: HL7Processor::Processors::ImmediateProcessor
+    )
     @server = Host.new(@config)
   end
 
@@ -36,8 +39,9 @@ describe Host do
       @socket.close
     end
 
-    it "should pass the message to a raw message handler" do
+    it "should pass the message to the correct message processor" do
       Socket.stub(:tcp_server_loop).with(@port).and_yield(@socket, nil)
+      @config.message_processor.should_receive(:process)
 
       @server.start
     end

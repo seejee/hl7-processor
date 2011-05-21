@@ -21,5 +21,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rspec', '~>2.5.0'
   s.add_dependency 'ruby-hl7'
+  s.add_dependency 'resque'
 
 end

@@ -28,7 +28,7 @@ module HL7Processor
       while(true)
         llp_line = socket.readline('\r')
         llp = LLPMessage.from_llp(llp_line)
-        LLPMessageHandler.new(llp).handle
+        @config.message_processor.process(llp)
       end
     end
 

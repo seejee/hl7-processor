@@ -2,7 +2,10 @@
 
 require 'hl7-processor'
 
-config = HL7Processor::Configuration.new(port: 5900)
+config = HL7Processor::Configuration.new(
+    port: 5900,
+    message_processor: HL7Processor::Processors::BackgroundProcessor
+    )
 server = HL7Processor::Host.new(config)
 
 server.start
