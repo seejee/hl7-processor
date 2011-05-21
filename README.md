@@ -48,25 +48,27 @@ host, use the following code:
     socket.write(llp.to_s)
     socket.close
 
-## Technical notes
-
 # Processors
 
 A 'processor' defines how each incoming LLP message will be processed. At the
  moment there are two processors: Immediate and Background.
 
-The Immediate processor synchronously handles the incoming message. The Background
+The Immediate processor synchronously handles incoming messages. The Background
 processor uses Resque to place the message on a queue named 'hl7_jobs' so that it
 can be handled later. In production, the Background processor is preferred
-as  it provides greater fault tolerance and performance can be scaled by
-adding more Resque workers.
+as  it provides greater fault tolerance and performance can be scaled as
+needed by adding more Resque workers.
 
-Please see '' for more information about Resque.
+Please see [the Resque project page](https://github.com/defunkt/resque]) for
+more information.
 
 # Channels
 
-A 'channel' defines a unit of work for an unpacked HL7 message. A single
-message can be handled by as many channels as are specified in the config. A
-channel merely needs to respond to a 'handle(hl7)' method, but a series of helper
-modules (Basic, Logging) have been created in the HL7Processor::Channels namespace
-that provide a DSL for creating custom channels easily.
+A 'channel' defines a unit of work for a single unpacked HL7 message. The
+message can be handled by as many channels as are specified in the
+Configuration object.
+
+To be functional, a channel merely needs to respond to a 'handle(hl7)' method,
+but a series of helper modules (Basic, Logging) have been created in the
+HL7Processor::Channels namespace that provide a DSL for creating custom
+channels easily.
