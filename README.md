@@ -13,14 +13,25 @@ The following features will be implemented during the RMU course:
 
 The bin directory provides a few example scripts, but here are a few examples:
 
-Starts a host on port 5000
+Starts a host on port 5900
 
-    require 'hl7-processor'
+    class LoggingChannel
+      extend HL7Processor::Channels::Logging
 
-    config  = HL7Processor::Configuration.new(port: 5000)
-    host    = HL7Processor::Host.new(config)
+      log_file "hl7.txt"
 
-    host.start
+      for_all_messages do |hl7|
+        log.info("Received a message:#{hl7}")
+      end
+
+    end
+
+    config = HL7Processor::Configuration.new(
+        port:               5900,
+        message_processor:  HL7Processor::Processors::Immediate,
+        channels:           [LoggingChannel]
+        )
+    server = HL7Processor::Host.new(config)
 
 HL7 is transmitted via a protocol called LLP. To send an LLP message to the
 host, use the following code:
