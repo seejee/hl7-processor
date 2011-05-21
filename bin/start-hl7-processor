@@ -13,10 +13,21 @@ class LoggingChannel
 
 end
 
+class AnotherLoggingChannel
+  extend HL7Processor::Channels::Logging
+
+  log_file "hl7.txt"
+
+  when_matching -> hl7 { hl7 == "hello!"} do |hl7|
+    log.info("Found a match!")
+  end
+
+end
+
 host = HL7Processor::Host.new do |config|
   config.port      = 5900
   config.processor = HL7Processor::Processors::Immediate
-  config.channels  = [LoggingChannel]
+  config.channels  = [LoggingChannel, AnotherLoggingChannel]
 end
 
 host.start
