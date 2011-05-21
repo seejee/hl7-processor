@@ -59,7 +59,7 @@ can be handled later. In production, the Background processor is preferred
 as  it provides greater fault tolerance and performance can be scaled as
 needed by adding more Resque workers.
 
-Please see [the Resque project page](https://github.com/defunkt/resque]) for
+Please see the [Resque project page](https://github.com/defunkt/resque) for
 more information.
 
 # Channels
