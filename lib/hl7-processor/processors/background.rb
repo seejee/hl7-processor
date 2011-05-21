@@ -4,8 +4,8 @@ module HL7Processor
   module Processors
     class Background
 
-      def self.process(message)
-        Resque.enqueue(ResqueHL7Job, message)
+      def self.process(channels, llp_message)
+        Resque.enqueue(ResqueHL7Job, channels, llp_message)
       end
 
     end
@@ -13,8 +13,8 @@ module HL7Processor
     class ResqueHL7Job
       @queue = :hl7_jobs
 
-      def perform(message)
-        puts "Received a message: #{message}"
+      def self.perform(channels, llp_message)
+        HL7Processor::Channels.execute(channels, llp_message)
       end
 
     end
