@@ -1,3 +1,4 @@
+require_relative 'channels/basic.rb'
 require_relative 'channels/logging.rb'
 
 module HL7Processor
