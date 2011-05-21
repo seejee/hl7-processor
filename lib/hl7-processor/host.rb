@@ -5,7 +5,14 @@ module HL7Processor
 
     attr_reader :config
 
-    def initialize(config)
+    def initialize(config = nil)
+
+      if(block_given?)
+        @config = Configuration.new
+        yield @config
+        return
+      end
+
       @config = config
     end
 
@@ -28,7 +35,7 @@ module HL7Processor
       while(true)
         llp_line = socket.readline('\r')
         llp = LLPMessage.from_llp(llp_line)
-        @config.message_processor.process(@config.channels, llp)
+        config.processor.process(config.channels, llp)
       end
     end
 
