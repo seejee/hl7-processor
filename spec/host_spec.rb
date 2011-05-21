@@ -6,7 +6,7 @@ describe Host do
     @port = 2075
     @config = HL7Processor::Configuration.new(
         port: 2075,
-        message_processor: HL7Processor::Processors::ImmediateProcessor
+        message_processor: HL7Processor::Processors::Immediate
     )
     @server = Host.new(@config)
   end

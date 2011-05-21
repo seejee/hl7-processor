@@ -1,6 +1,6 @@
 module HL7Processor
   module Processors
-    class ImmediateProcessor
+    class Immediate
 
       def self.process(message)
         puts "Received a message: #{message}"

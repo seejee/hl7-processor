@@ -2,7 +2,7 @@ require 'resque'
 
 module HL7Processor
   module Processors
-    class BackgroundProcessor
+    class Background
 
       def self.process(message)
         Resque.enqueue(ResqueHL7Job, message)
