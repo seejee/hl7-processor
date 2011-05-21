@@ -2,10 +2,21 @@
 
 require 'hl7-processor'
 
+class LoggingChannel
+  extend HL7Processor::Channels::Logging
+
+  log_file "hl7.txt"
+
+  for_all_messages do |hl7|
+    log.info("Received a message:#{hl7}")
+  end
+
+end
+
 config = HL7Processor::Configuration.new(
     port:               5900,
     message_processor:  HL7Processor::Processors::Immediate,
-    channels:           [HL7Processor::Channels::Logging.new("hl7.txt")]
+    channels:           [LoggingChannel]
     )
 server = HL7Processor::Host.new(config)
 
