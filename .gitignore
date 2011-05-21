@@ -5,3 +5,4 @@ pkg/*
 .rvmrc
 .idea/*
 .DS_Store
+hl7.txt

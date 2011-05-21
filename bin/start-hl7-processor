@@ -5,7 +5,7 @@ require 'hl7-processor'
 config = HL7Processor::Configuration.new(
     port:               5900,
     message_processor:  HL7Processor::Processors::Immediate,
-    channels:           [HL7Processor::Channels::Logging]
+    channels:           [HL7Processor::Channels::Logging.new("hl7.txt")]
     )
 server = HL7Processor::Host.new(config)
 
