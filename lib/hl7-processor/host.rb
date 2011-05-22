@@ -29,7 +29,8 @@ module HL7Processor
       while(true)
         llp_line = socket.readline('\r')
         llp = LLPMessage.from_llp(llp_line)
-        config.processor.process(config.channels, llp)
+        channel_instances = @config.channels.collect {|c| c.new }
+        config.processor.process(channel_instances, llp)
       end
     end
 
