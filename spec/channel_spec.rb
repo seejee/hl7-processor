@@ -16,7 +16,11 @@ describe "Channel creation" do
       @all_counter += 1
     end
 
-    when_matching -> hl7 {hl7 == "hi"} do |hl7|
+    define_filter :contains_hi do |hl7|
+      hl7 == "hi"
+    end
+
+    when_matching :contains_hi do |hl7|
       @filtered_counter += 1
     end
 
@@ -24,19 +28,39 @@ describe "Channel creation" do
 
   before(:each) do
     @channel = TestChannel.new
-    @channel.handle("hi")
   end
 
   context "when a message matches" do
+
+    before(:each) do
+      @channel.handle("hi")
+    end
 
     it "should run through the all message block" do
       @channel.all_counter.should == 1
     end
 
-    it "should run through the matched block" do
+    it "should be executed by the filtered block" do
       @channel.filtered_counter.should == 1
     end
 
   end
+
+  context "when a message doesn't match" do
+
+    before(:each) do
+      @channel.handle("no match")
+    end
+
+    it "should run through the all message block" do
+      @channel.all_counter.should == 1
+    end
+
+    it "should not be executed by the filtered block" do
+      @channel.filtered_counter.should == 0
+    end
+
+  end
+
 
 end

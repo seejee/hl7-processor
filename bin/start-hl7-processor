@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 require 'hl7-processor'
 
@@ -18,7 +18,11 @@ class AnotherLoggingChannel
 
   log_file "hl7.txt"
 
-  when_matching -> hl7 { hl7 == "hello!"} do |hl7|
+  define_filter :hello_filter do |hl7|
+    hl7 == "hello!"
+  end
+
+  when_matching :hello_filter do |hl7|
     log.info("Found a match!")
   end
 

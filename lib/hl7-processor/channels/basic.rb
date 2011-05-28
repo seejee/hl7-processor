@@ -7,7 +7,13 @@ module HL7Processor
         instance_exec(hl7, &default_action) if default_action
 
         when_statements.each do |statement|
-          is_a_match = instance_exec(hl7, &statement[:predicate])
+          filter     = filters[statement[:filter_name]]
+
+          unless filter
+            raise "could not find filter named #{statement[:filter_name]}"
+          end
+
+          is_a_match = instance_exec(hl7, &filter)
           instance_exec(hl7, &statement[:action]) if is_a_match == true
         end
 
@@ -23,11 +29,15 @@ module HL7Processor
         self.class.when_statements
       end
 
+      def filters
+        self.class.filters
+      end
+
     end
 
     module Basic
 
-      attr_reader :default_action, :when_statements
+      attr_reader :default_action, :when_statements, :filters
 
       def self.extended(other)
         other.class_eval do
@@ -39,12 +49,20 @@ module HL7Processor
         @default_action = block
       end
 
-      def when_matching(predicate, &action)
-        when_statements << {predicate: predicate, action: action }
+      def define_filter(name, &block)
+        filters[name] = block
+      end
+
+      def when_matching(filter_name, &action)
+        when_statements << {filter_name: filter_name, action: action }
       end
 
       def when_statements
-         @when_statements ||= []
+        @when_statements ||= []
+      end
+
+      def filters
+        @filters ||= {}
       end
 
     end
